@@ -8,6 +8,7 @@ import com.dodo.spring_chat_dodo.user.service.UserService;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.http.ResponseEntity;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -43,14 +44,14 @@ public class UserController {
 
     // 회원 등록
     @PostMapping("")
-    public ResponseEntity<Void> joinUser(@RequestBody UserJoinDto userJoinDto) {
+    public ResponseEntity<Void> joinUser(@RequestBody @Validated UserJoinDto userJoinDto) {
         userService.joinUser(userJoinDto);
         return ResponseEntity.ok().build();
     }
 
     // 회원 수정
     @PutMapping("{email}")
-    public ResponseEntity<Void> joinUser(@RequestBody UserUpdateDto userUpdateDto) {
+    public ResponseEntity<Void> joinUser(@RequestBody @Validated UserUpdateDto userUpdateDto) {
         userService.updateUser(userUpdateDto);
         return ResponseEntity.ok().build();
     }

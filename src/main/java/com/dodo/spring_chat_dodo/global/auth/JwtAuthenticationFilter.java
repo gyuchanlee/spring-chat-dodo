@@ -6,9 +6,11 @@ import com.dodo.spring_chat_dodo.user.repository.UserRepository;
 import com.dodo.spring_chat_dodo.user.service.UserService;
 import jakarta.servlet.FilterChain;
 import jakarta.servlet.ServletException;
+import jakarta.servlet.http.Cookie;
 import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import lombok.RequiredArgsConstructor;
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
@@ -18,6 +20,7 @@ import java.io.IOException;
 import java.util.Arrays;
 import java.util.List;
 
+@Slf4j
 @RequiredArgsConstructor
 public class JwtAuthenticationFilter extends OncePerRequestFilter {
 
@@ -37,12 +40,8 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest request, HttpServletResponse response, FilterChain filterChain)
             throws ServletException, IOException {
 
-        // jwt를 거칠 필요가 없는 열린 요청
-        // 헤더에서 JWT 토큰 추출
-        String authHeader = request.getHeader("Authorization");
-
-        // 토큰이 없거나 Bearer로 시작하지 않으면 다음 필터로 진행
-        if (authHeader == null || !authHeader.startsWith("Bearer ")) {
+        // 토큰이 없으면 다음 필터로 진행
+        if (request.getCookies() == null || !hasTokenCookie(request)) {
             filterChain.doFilter(request, response);
             return;
         }
@@ -82,5 +81,26 @@ public class JwtAuthenticationFilter extends OncePerRequestFilter {
     private void setAuthenticationToContext(String accessToken) {
         Authentication authentication = jwtService.getAuthentication(accessToken);
         SecurityContextHolder.getContext().setAuthentication(authentication);
+    }
+
+    private boolean hasTokenCookie(HttpServletRequest request) {
+        if (request.getCookies() == null) {
+            return false;
+        }
+
+        boolean hasAccessToken = false;
+        boolean hasRefreshToken = false;
+
+        for (Cookie cookie : request.getCookies()) {
+            if (cookie.getName().equals(JwtRule.ACCESS_PREFIX.getValue())) {
+                hasAccessToken = true;
+            }
+            if (cookie.getName().equals(JwtRule.REFRESH_PREFIX.getValue())) {
+                hasRefreshToken = true;
+            }
+        }
+
+        // 둘 중 하나라도 있으면 true 반환 (실제 토큰 유효성은 이후 로직에서 검사)
+        return hasAccessToken || hasRefreshToken;
     }
 }

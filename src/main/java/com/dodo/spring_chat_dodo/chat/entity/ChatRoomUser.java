@@ -29,4 +29,8 @@ public class ChatRoomUser extends BaseCreatedTimeEntity {
     @Column(nullable = false)
     private boolean isHost = false;
 
+    // 호스트로 승급
+    public void promoteToHost() {
+        this.isHost = true;
+    }
 }

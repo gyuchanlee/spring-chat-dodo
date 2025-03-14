@@ -13,6 +13,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
+import org.springframework.validation.annotation.Validated;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -45,19 +46,20 @@ public class AuthController {
 
     // 로그인
     @PostMapping("/login")
-    public ResponseEntity<UserResponseDto> login(@RequestBody LoginRequestDto loginRequestDto,
+    public ResponseEntity<UserResponseDto> login(@RequestBody @Validated LoginRequestDto loginRequestDto,
                                                  HttpServletResponse response) {
 
         // 로그인 검증
         User user = userRepository.findByEmail(loginRequestDto.getEmail())
                 .orElseThrow(() -> new UsernameNotFoundException("user not found : " + loginRequestDto.getEmail()));
-        if (!user.getPassword().equals(passwordEncoder.encode(loginRequestDto.getPassword()))) {
+
+        if (!passwordEncoder.matches(loginRequestDto.getPassword(), user.getPassword())) {
             throw new RuntimeException("password not match");
         }
 
         // 인증 성공 시, 토큰 발급하고 SecurityContext 에 정보 저장
         String accessToken = jwtService.generateAccessToken(response, user);
-        String refreshToken = jwtService.generateRefreshToken(response, user);
+        jwtService.generateRefreshToken(response, user);
         SecurityContextHolder.getContext().setAuthentication(jwtService.getAuthentication(accessToken));
 
         return ResponseEntity.ok(

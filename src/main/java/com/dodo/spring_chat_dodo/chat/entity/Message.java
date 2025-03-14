@@ -27,7 +27,7 @@ public class Message extends BaseTimeEntity {
     @JoinColumn(name = "chat_room_id", nullable = false)
     private ChatRoom chatRoom;
 
-    private String message;
+    private String content;
 
     private Integer unreadCount;
 }

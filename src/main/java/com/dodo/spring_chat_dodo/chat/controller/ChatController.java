@@ -78,6 +78,6 @@ public class ChatController {
         // 메시지를 해당 채팅방 구독자들에게 전송
         template.convertAndSend("/sub/chatroom/"+messageCreateDto.getChatRoomId(), message);
         // void 나 메시지 자체를 반환하기
-        log.info("메시지 전송 완료: {}", message.getContent());
+//        log.info("메시지 전송 완료: {}", message.getContent());
     }
 }

@@ -29,7 +29,7 @@ WORKDIR /app
 COPY --from=build /app/build/libs/*.jar app.jar
 
 # 포트 노출
-EXPOSE 8080
+EXPOSE 8000
 
 # 실행 명령
 ENTRYPOINT ["java", \

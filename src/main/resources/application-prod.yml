@@ -4,9 +4,9 @@ spring:
       on-profile: prod
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${SRPING_DATABASE_URL}
-    username: ${SRPING_DATABASE_USERNAME}
-    password: ${SRPING_DATABASE_PASSWORD}
+    url: ${SPRING_DATABASE_URL} #  todo cloud run 배포 부분 바꾸기
+    username: ${SPRING_DATABASE_USERNAME}
+    password: ${SPRING_DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate

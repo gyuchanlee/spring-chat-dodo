@@ -76,15 +76,16 @@ public class SecurityConfig {
         CorsConfiguration configuration = new CorsConfiguration();
         configuration.setAllowedOrigins(allowedOrigins); // 프론트엔드 서버 주소
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
-        configuration.setAllowedHeaders(Arrays.asList(
-                "Authorization",
-                "Content-Type",
-                "X-Requested-With",
-                "Accept",
-                "Origin",
-                "Access-Control-Request-Method",
-                "Access-Control-Request-Headers"
-        ));
+//        configuration.setAllowedHeaders(Arrays.asList(
+//                "Authorization",
+//                "Content-Type",
+//                "X-Requested-With",
+//                "Accept",
+//                "Origin",
+//                "Access-Control-Request-Method",
+//                "Access-Control-Request-Headers"
+//        ));
+        configuration.setAllowedHeaders(List.of("*"));
         configuration.setExposedHeaders(Arrays.asList("Authorization", "Content-Disposition", "location"));
         configuration.setAllowCredentials(true);
         configuration.setMaxAge(3600L); // 1시간 캐싱

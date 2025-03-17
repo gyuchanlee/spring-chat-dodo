@@ -4,7 +4,7 @@ spring:
       on-profile: prod
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: jdbc:postgresql://${SPRING_DATABASE_HOST}/${SPRING_DATABASE_NAME} # todo cloud run 배포 부분 바꾸기
+    url: jdbc:postgresql://${SPRING_DATABASE_HOST}:5432/${SPRING_DATABASE_NAME} # todo cloud run 배포 부분 바꾸기
     username: ${SPRING_DATABASE_USERNAME}
     password: ${SPRING_DATABASE_PASSWORD}
   jpa:

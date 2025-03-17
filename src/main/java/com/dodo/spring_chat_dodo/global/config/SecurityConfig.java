@@ -74,8 +74,7 @@ public class SecurityConfig {
     @Bean
     public CorsConfigurationSource corsConfigurationSource() {
         CorsConfiguration configuration = new CorsConfiguration();
-//        configuration.setAllowedOrigins(allowedOrigins); // 프론트엔드 서버 주소
-        configuration.setAllowedOrigins(List.of("https://react-vite-dodo-88013499747.asia-northeast2.run.app")); // 프론트엔드 서버 주소
+        configuration.setAllowedOrigins(allowedOrigins); // 프론트엔드 서버 주소
         configuration.setAllowedMethods(Arrays.asList("GET", "POST", "PUT", "PATCH", "DELETE", "OPTIONS"));
 //        configuration.setAllowedHeaders(Arrays.asList(
 //                "Authorization",

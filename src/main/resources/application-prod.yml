@@ -4,16 +4,16 @@ spring:
       on-profile: prod
   datasource:
     driver-class-name: org.postgresql.Driver
-    url: ${DATABASE_URL}
-    username: ${DATABASE_USERNAME}
-    password: ${DATABASE_PASSWORD}
+    url: ${SRPING_DATABASE_URL}
+    username: ${SRPING_DATABASE_USERNAME}
+    password: ${SRPING_DATABASE_PASSWORD}
   jpa:
     hibernate:
       ddl-auto: validate
     properties:
       hibernate:
         format_sql: false
-        default_schema: ${DATABASE_SCHEMA:gyuchanlee} # postgresql의 기본 스키마로 내 꺼 지정
+        default_schema: ${SPRING_DATABASE_SCHEMA:gyuchanlee} # postgresql의 기본 스키마로 내 꺼 지정
 
 logging:
   level:
@@ -22,10 +22,10 @@ logging:
 
 # JWT 설정
 jwt:
-  access-secret: ${JWT_ACCESS_SECRET}
-  refresh-secret: ${JWT_REFRESH_SECRET}
-  access-expiration: ${JWT_ACCESS_EXPIRATION:3600000}  # 60 min: 기본값 설정
-  refresh-expiration: ${JWT_REFRESH_EXPIRATION:86400000}  # 24 hours: 기본값 설정
+  access-secret: ${SPRING_JWT_ACCESS_SECRET}
+  refresh-secret: ${SPRING_JWT_REFRESH_SECRET}
+  access-expiration: ${SPRING_JWT_ACCESS_EXPIRATION:3600000}  # 60 min: 기본값 설정
+  refresh-expiration: ${SPRING_JWT_REFRESH_EXPIRATION:86400000}  # 24 hours: 기본값 설정
 
 # Cors 프론트 url 설정
 cors:

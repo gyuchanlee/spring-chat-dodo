@@ -51,9 +51,9 @@ public class UserController {
 
     // 회원 수정
     @PutMapping("{email}")
-    public ResponseEntity<Void> joinUser(@RequestBody @Validated UserUpdateDto userUpdateDto) {
-        userService.updateUser(userUpdateDto);
-        return ResponseEntity.ok().build();
+    public ResponseEntity<UserResponseDto> joinUser(@RequestBody @Validated UserUpdateDto userUpdateDto) {
+        UserResponseDto updatedUser = userService.updateUser(userUpdateDto);
+        return ResponseEntity.ok(updatedUser);
     }
     // 회원 탈퇴
     @DeleteMapping("{userId}")

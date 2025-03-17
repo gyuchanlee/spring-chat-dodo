@@ -78,6 +78,7 @@ public class AuthController {
 
         // 로그아웃할 이용자 조회
         String accessToken = jwtService.resolveTokenFromCookie(request, JwtRule.ACCESS_PREFIX);
+
         String userId = jwtService.getIdFromAccess(accessToken);
         User user = userRepository.findById(Long.parseLong(userId))
                 .orElseThrow(() -> new UsernameNotFoundException("user not found : " + userId));

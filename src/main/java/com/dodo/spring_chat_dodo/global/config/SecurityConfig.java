@@ -61,7 +61,7 @@ public class SecurityConfig {
                         .requestMatchers("/api/test/**").permitAll() // 테스트
                         .requestMatchers("/api/permitall/**").hasAnyRole("USER", "ADMIN") // 테스트
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // 테스트
-//                        .requestMatchers("/api/**").authenticated() // API 인증 요구
+                        .requestMatchers("/api/**").authenticated() // API 인증 요구
                         .anyRequest().permitAll() // 임시 허용
                 )
                 // jwt 검증 필터 추가

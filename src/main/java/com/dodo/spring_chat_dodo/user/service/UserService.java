@@ -19,7 +19,7 @@ public interface UserService {
     // 회원 등록
     void joinUser(UserJoinDto userJoinDto);
     // 회원 수정
-    void updateUser(UserUpdateDto userUpdateDto);
+    UserResponseDto updateUser(UserUpdateDto userUpdateDto);
     // 회원 탈퇴
     void deleteUser(Long userId);
 }

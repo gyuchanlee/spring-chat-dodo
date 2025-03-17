@@ -51,6 +51,7 @@ public class SecurityConfig {
                                 session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
                 )
                 .authorizeHttpRequests(auth -> auth
+                        .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // OPTIONS 요청 명시적 허용 Cors 문제
                         .requestMatchers("/ws/**").permitAll()
                         .requestMatchers("/api/auth/**").permitAll() // JWT, 로그인 로그아웃
                         .requestMatchers(HttpMethod.POST, "/api/users/").permitAll() // 회원 가입

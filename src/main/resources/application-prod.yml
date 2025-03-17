@@ -31,4 +31,4 @@ jwt:
 
 # Cors 프론트 url 설정
 cors:
-  allowed-origins: https://react-vite-dodo-88013499747.asia-northeast2.run.app # todo 프론트 prod 환경 주소
+  allowed-origins: https://react-vite-dodo-88013499747.asia-northeast2.run.app

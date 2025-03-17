@@ -6,4 +6,4 @@ spring:
     name: spring-chat-dodo
 
 server:
-  port: 8080
+  port: 8000

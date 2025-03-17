@@ -33,6 +33,5 @@ EXPOSE 8080
 
 # 실행 명령
 ENTRYPOINT ["java", \
-  "-XX:MaxRAMPercentage=75.0", \
   "-Djava.security.egd=file:/dev/./urandom", \
   "-jar", "app.jar"]

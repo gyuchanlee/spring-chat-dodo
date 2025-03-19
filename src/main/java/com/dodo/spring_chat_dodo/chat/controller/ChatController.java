@@ -56,14 +56,14 @@ public class ChatController {
         return ResponseEntity.ok(joinedChatRoom);
     }
 
-    // 채팅방 인원 퇴장 todo
+    // 채팅방 인원 퇴장
     @DeleteMapping("/{chatRoomId}/leaveUser")
     public ResponseEntity<Void> leaveChatRoom(@PathVariable Long chatRoomId) {
         chatRoomService.leaveChatRoom(chatRoomId);
         return ResponseEntity.ok().build();
     }
 
-    // 채팅방 리스트 조회 (채팅방 정보만) todo
+    // 채팅방 리스트 조회 (채팅방 정보만)
     @GetMapping("")
     public ResponseEntity<List<ChatRoomResponseDto>> chatRooms() {
         return ResponseEntity.ok().body(chatRoomService.getChatRooms());

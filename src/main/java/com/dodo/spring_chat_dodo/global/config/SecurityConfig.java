@@ -48,7 +48,10 @@ public class SecurityConfig {
                 )
                 .sessionManagement(
                         session ->
-                                session.sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                session
+                                        .sessionCreationPolicy(SessionCreationPolicy.STATELESS)
+                                        .maximumSessions(1) // 최대 세션 1
+                                        .maxSessionsPreventsLogin(false) // 기존 로그인 세션 만료, 새 로그인 허용
                 )
                 .authorizeHttpRequests(auth -> auth
                         .requestMatchers(HttpMethod.OPTIONS, "/**").permitAll() // OPTIONS 요청 명시적 허용 Cors 문제
@@ -57,7 +60,7 @@ public class SecurityConfig {
                         .requestMatchers(HttpMethod.POST, "/api/users/").permitAll() // 회원 가입
                         .requestMatchers( HttpMethod.GET, "/api/users/").hasRole("ADMIN") // 회원 리스트 (관리자용)
                         .requestMatchers("/api/users/**").hasAnyRole("USER", "ADMIN")
-                        .requestMatchers("/api/chat/**").hasAnyRole("USER", "ADMIN") // todo 나중에 막기, 채팅관련
+                        .requestMatchers("/api/chat/**").hasAnyRole("USER", "ADMIN")
                         .requestMatchers("/api/test/**").permitAll() // 테스트
                         .requestMatchers("/api/permitall/**").hasAnyRole("USER", "ADMIN") // 테스트
                         .requestMatchers("/api/admin/**").hasRole("ADMIN") // 테스트
@@ -67,7 +70,6 @@ public class SecurityConfig {
                 // jwt 검증 필터 추가
                 .addFilterBefore(new JwtAuthenticationFilter(jwtService, userRepository),
                         UsernamePasswordAuthenticationFilter.class);
-        // todo 추후 jwt 추가 생각
         return http.build();
     }
 
